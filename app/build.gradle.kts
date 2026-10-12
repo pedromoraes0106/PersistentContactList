@@ -7,7 +7,7 @@ plugins {
 android {
     namespace = "br.edu.ifsp.scl.prdm.sc304775x.persistentcontactlist"
     compileSdk {
-        version = release(37)
+        version = release(36)
     }
 
     defaultConfig {
