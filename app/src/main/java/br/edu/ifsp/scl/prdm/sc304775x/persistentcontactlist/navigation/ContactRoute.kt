@@ -10,8 +10,11 @@ import br.edu.ifsp.scl.prdm.sc304775x.persistentcontactlist.ui.composable.screen
 @Composable
 fun ContactRoute(contactViewModel: ContactViewModel, modifier: Modifier = Modifier, onDone: () -> Unit){
     val contact by contactViewModel.currentContact.collectAsStateWithLifecycle()
+    val operation by contactViewModel.operation.collectAsStateWithLifecycle()
+
     ContactScreen(
         contact = contact,
+        operation = operation,
         modifier = modifier,
         onSaveAndQuit = { newOrEditedContact ->
             contactViewModel.saveContact(newOrEditedContact)

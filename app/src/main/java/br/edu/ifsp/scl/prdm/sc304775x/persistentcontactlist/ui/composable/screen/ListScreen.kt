@@ -27,7 +27,13 @@ import br.edu.ifsp.scl.prdm.sc304775x.persistentcontactlist.ui.theme.PersistentC
 import kotlin.math.exp
 
 @Composable
-fun ListScreen(contactList: List<Contact>, modifier: Modifier = Modifier) {
+fun ListScreen(
+    contactList: List<Contact>,
+    onViewContact: (Contact) -> Unit = {},
+    onEditContact: (Contact) -> Unit = {},
+    onRemoveContact: (Contact) -> Unit = {},
+    modifier: Modifier = Modifier,
+) {
     LazyColumn(modifier = modifier.fillMaxWidth()) {
         items(items = contactList, key = { it.id  } ) { contact ->
             var expanded by remember { mutableStateOf(false) }
@@ -35,7 +41,9 @@ fun ListScreen(contactList: List<Contact>, modifier: Modifier = Modifier) {
                 Row(
                     modifier = Modifier.fillMaxWidth()
                         .combinedClickable(
-                            onClick = {},
+                            onClick = {
+                                onViewContact(contact)
+                            },
                             onLongClick = { expanded = true }
                     )
                 ) {
@@ -51,11 +59,17 @@ fun ListScreen(contactList: List<Contact>, modifier: Modifier = Modifier) {
             ) {
                 DropdownMenuItem(
                     text = { Text("Edit") },
-                    onClick = {}
+                    onClick = {
+                        onEditContact(contact)
+                        expanded = false
+                    }
                 )
                 DropdownMenuItem(
                     text = { Text("Remove") },
-                    onClick = {}
+                    onClick = {
+                        onRemoveContact(contact)
+                        expanded = false
+                    }
                 )
             }
 
@@ -69,7 +83,12 @@ fun ListScreen(contactList: List<Contact>, modifier: Modifier = Modifier) {
 fun ListScreenPreview() {
     PersistentContactListTheme {
         Surface {
-            ListScreen(contactList = listOf())
+            ListScreen(
+                contactList = listOf(),
+                onViewContact = {},
+                onEditContact = {},
+                onRemoveContact = {}
+            )
         }
     }
 }
